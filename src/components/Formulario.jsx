@@ -1,17 +1,34 @@
+import axios from 'axios'
 import Link from 'next/link'
+import { useRouter } from 'next/router'
 import { useState } from 'react'
 
 const Formulario = () => {
+  const { push } = useRouter()
+
   const [datof, setDatof] = useState({
     id: '',
     pas: ''
   })
+
+  const [incorrecto, setIncorrecto] = useState(false)
 
   const savedato = ({ target: { name, value } }) => {
     setDatof({
       ...datof,
       [name]: value
     })
+  }
+
+  const vali = async (e) => {
+    e.preventDefault()
+    setIncorrecto(false)
+    const { data } = await axios.post('api/login', datof)
+    if (data) {
+      push('/')
+    } else {
+      setIncorrecto(true)
+    }
   }
 
   return (
@@ -22,13 +39,18 @@ const Formulario = () => {
         </h1>
 
         <div className="bg-white p-5 rounded-xl grid">
-          <form className="grid ">
+          <form
+          className="grid "
+          onSubmit={vali}>
+
+            {incorrecto && <label>DNI y/o contraseña Incorrectos</label>}
 
             <input
               className="m-3 pl-2 text-base py-2 rounded-lg border-black border mb-1"
               type="text"
               name="id"
               required
+              maxLength="8"
               placeholder="Ingresa tu DNI"
               onChange={savedato}
             />
@@ -36,7 +58,7 @@ const Formulario = () => {
               <label className='text-xs flex justify-center text-red-500'>EL DNI debe tener 8 digitos</label>
             }
 
-            {((!/^[a-zA-Z]+$/.test(datof.id)) && datof.id.length !== 0) &&
+            {((!/^\d+$/.test(datof.id)) && datof.id.length !== 0) &&
               <label className='text-xs flex justify-center text-red-500'>EL DNI solo debe tener números</label>
             }
 
