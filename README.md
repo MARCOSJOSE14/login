@@ -4,9 +4,9 @@ En este proyecto haremos un Login con autenticación y guardado de Token usando 
 
 Librerias a usar:
 
-    axios: para poder cnosumit las APIs que vamos a crear
+    axios: para poder consumir las APIs que vamos a crear
     cookie: para poder crear las Cookies
-    eslint: Para usar con mismo estandar
+    eslint: Para escribir código con un mismo estandar
     jose: para verificar la cookie en el middleware
     jsonwebtoken: para verificar la cookie en las API, obtener los datos del token y crear el serial para el navegador
     mysql2: para la conexion con mysql en la carpeta config
