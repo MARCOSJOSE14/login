@@ -54,9 +54,6 @@ const Formulario = () => {
               placeholder="Ingresa tu DNI"
               onChange={savedato}
             />
-            {(datof.id.length !== 8 && datof.id.length !== 0) &&
-              <label className='text-xs flex justify-center text-red-500'>EL DNI debe tener 8 digitos</label>
-            }
 
             {((!/^\d+$/.test(datof.id)) && datof.id.length !== 0) &&
               <label className='text-xs flex justify-center text-red-500'>EL DNI solo debe tener números</label>
